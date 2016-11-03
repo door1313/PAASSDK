@@ -1,0 +1,12 @@
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle/
+.DS_Store
+test_reports/
+build/
+.project
+.classpath
+.settings/
+.bin/
