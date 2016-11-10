@@ -1,0 +1,14 @@
+{
+  "status":404,
+  "headers":{
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "X-Frame-Options": "DENY"
+  },
+  "body":{
+    "status": "Can not Complete",
+    "details": {
+      "message": "JAAS-SCALING-027: The provided server name, [aaa], is not a valid managed server name in the service [jiawgaoJCS]"
+    }
+  }
+}

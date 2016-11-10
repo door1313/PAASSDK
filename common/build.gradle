@@ -1,2 +1,33 @@
 
+dependencies{
+    compile dependencyManagement.rsapi
+    compile dependencyManagement.jerseyClient
+    compile dependencyManagement.glassfishJson
+    testCompile dependencyManagement.test
+}
+
+task taskJarCommon(type:Jar, dependsOn: compileJava) {
+    manifest {  
+        attributes ('Implementation-Title': 'Gradle',  
+                'Implementation-Version': '1.0',  
+                'Created-By': 'wayne',  
+                'Main-Class': 'cloud.oracle.paas.config.PropertyLoader',
+            'Class-Path': configurations.compile.collect {'lib/' + it.getName()}.join(' ') 
+        )  
+    }
+    from 'build/classes/main'
+    from 'libs'
+    destinationDir = file('build/libs')
+}
+    
+task taskJar(type: Copy,dependsOn: [taskJarCommon]) {
+    println('copy')
+    from('build/libs') {
+        include '*.jar'
+    }
+    into ('../services/jcs/libs')
+}
+
+ 
+
 

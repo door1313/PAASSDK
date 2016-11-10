@@ -10,3 +10,8 @@ build/
 .classpath
 .settings/
 .bin/
+/.nb-gradle/
+/JavaApplication2/nbproject/private/
+*.jar
+target/
+
