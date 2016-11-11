@@ -11,7 +11,8 @@ import static org.junit.Assert.assertEquals;
  * Test for ManagedServers
  */
 public class ManagedServersTest {
-    private static int ERROR_STATUS ;
+    private static int BAD_REQUEST_STATUS ;
+    private static int NOT_FOUND_STATUS;
     private static int SUCCESS_STATUS;
     private static String WRONG_SERVICE_NAME;
     private static String CORRECT_SERVICE_NAME;
@@ -22,7 +23,8 @@ public class ManagedServersTest {
     @Before
     public void setUp(){
         ms = new ManagedServers(true);
-        ERROR_STATUS = 400;
+        BAD_REQUEST_STATUS = 400;
+        NOT_FOUND_STATUS = 404;
         SUCCESS_STATUS = 200;
         WRONG_SERVICE_NAME = "wrong_service_name";
         CORRECT_SERVICE_NAME = "jiawgaoJCS";
@@ -33,9 +35,19 @@ public class ManagedServersTest {
     @Test
     public void testGetAllServers() throws Exception {
         HTTPResult result = ms.getAllServers(WRONG_SERVICE_NAME);
-        assertEquals("Status should be error", ERROR_STATUS, result.getStatus());
+        assertEquals("Status should be Bad Request", BAD_REQUEST_STATUS, result.getStatus());
 
         result = ms.getAllServers(CORRECT_SERVICE_NAME);
+        assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
+
+    }
+
+    @Test
+    public void testGetServer() throws Exception {
+        HTTPResult result = ms.getServer(CORRECT_SERVICE_NAME,WRONG_SERVER_NAME);
+        assertEquals("Status should be Not Found", NOT_FOUND_STATUS, result.getStatus());
+
+        result = ms.getServer(CORRECT_SERVICE_NAME,CORRECT_SERVER_NAME);
         assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
 
     }
