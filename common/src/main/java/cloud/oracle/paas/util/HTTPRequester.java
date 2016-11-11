@@ -57,14 +57,15 @@ public class HTTPRequester {
         }
     }
 
-    public HTTPResult request(String uri, MultivaluedMap<String, String> headers, Map<String, String> params, String payload, Method method) throws Exception {
+    public HTTPResult request(String uri, MultivaluedMap<String, String> headers, Map<String, String> params, String payload, Method method)  {
 
         WebTarget target = httpClient.target(uri);
         buildParams(target, params);
         Invocation.Builder builder = target.request();
         buildHeaders(builder, headers);
         if(method == null){
-            throw new Exception("Missing method");
+            LOGGER.warning("Missing method");
+            return null;
         }
         Response response;
         switch (method){

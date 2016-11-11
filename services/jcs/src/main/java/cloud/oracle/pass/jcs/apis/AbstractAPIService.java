@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 abstract class AbstractAPIService {
 
     private HTTPRequester requester;
-    private String jcsHost;
+    private static String jcsHost;
     private MultivaluedStringMap requestHeaders;
 
     AbstractAPIService(Boolean enableLogger) {
@@ -33,7 +33,7 @@ abstract class AbstractAPIService {
         return requester;
     }
 
-    public String getJcsHost() {
+    public static String getJcsHost() {
         return jcsHost;
     }
 

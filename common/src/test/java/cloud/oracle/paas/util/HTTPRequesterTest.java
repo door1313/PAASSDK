@@ -31,7 +31,7 @@ public class HTTPRequesterTest {
     }
 
     @Test
-    public void testBuild() throws Exception {
+    public void testRequest() throws Exception {
 
         String uri = CommonConstants.RegionHost.findHostByRegion(PropertyLoader.getRegion()) + "/paas/service/jcs/api/v1.1/instances/" + PropertyLoader.getIdentityDomain() + "/jiawgaoJCS/servers/aaa";
         MultivaluedStringMap requestHeaders = new MultivaluedStringMap();
