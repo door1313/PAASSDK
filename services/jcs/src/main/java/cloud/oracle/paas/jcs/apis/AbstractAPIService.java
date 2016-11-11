@@ -1,4 +1,4 @@
-package cloud.oracle.pass.jcs.apis;
+package cloud.oracle.paas.jcs.apis;
 
 import cloud.oracle.paas.CommonConstants;
 import cloud.oracle.paas.config.PropertyLoader;
@@ -25,6 +25,7 @@ abstract class AbstractAPIService {
                 jcsHost = host;
             }
         }
+        requestHeaders = new MultivaluedStringMap();
         requestHeaders.putSingle(CommonConstants.TENENTHEADER,PropertyLoader.getIdentityDomain());
 
     }

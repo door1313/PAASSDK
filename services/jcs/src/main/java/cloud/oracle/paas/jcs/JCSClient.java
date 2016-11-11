@@ -1,4 +1,4 @@
-package cloud.oracle.pass.jcs;
+package cloud.oracle.paas.jcs;
 
 /**
  * Created by thguo
