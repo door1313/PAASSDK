@@ -14,4 +14,5 @@ build/
 /JavaApplication2/nbproject/private/
 *.jar
 target/
-
+libs/
+lib/
