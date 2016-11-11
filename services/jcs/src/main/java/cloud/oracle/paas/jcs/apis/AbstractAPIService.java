@@ -1,4 +1,4 @@
-package cloud.oracle.pass.jcs.apis;
+package cloud.oracle.paas.jcs.apis;
 
 import cloud.oracle.paas.CommonConstants;
 import cloud.oracle.paas.config.PropertyLoader;
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 abstract class AbstractAPIService {
 
     private HTTPRequester requester;
-    private static String jcsHost;
+    private String jcsHost;
     private MultivaluedStringMap requestHeaders;
 
     AbstractAPIService(Boolean enableLogger) {
@@ -25,6 +25,7 @@ abstract class AbstractAPIService {
                 jcsHost = host;
             }
         }
+        requestHeaders = new MultivaluedStringMap();
         requestHeaders.putSingle(CommonConstants.TENENTHEADER,PropertyLoader.getIdentityDomain());
 
     }
@@ -33,7 +34,7 @@ abstract class AbstractAPIService {
         return requester;
     }
 
-    public static String getJcsHost() {
+    public String getJcsHost() {
         return jcsHost;
     }
 

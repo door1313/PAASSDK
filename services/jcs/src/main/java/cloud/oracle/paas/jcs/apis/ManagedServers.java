@@ -1,4 +1,4 @@
-package cloud.oracle.pass.jcs.apis;
+package cloud.oracle.paas.jcs.apis;
 
 import cloud.oracle.paas.CommonConstants;
 import cloud.oracle.paas.config.PropertyLoader;
@@ -9,7 +9,7 @@ import cloud.oracle.paas.model.HTTPResult;
  */
 public class ManagedServers extends AbstractAPIService {
 
-    private static final String uriPrefix = getJcsHost() + CommonConstants.ENDPOINTPREFIX + "/" + PropertyLoader.getIdentityDomain() + "/";
+    private final String uriPrefix = getJcsHost() + CommonConstants.ENDPOINTPREFIX + "/" + PropertyLoader.getIdentityDomain() + "/";
 
     public ManagedServers(Boolean enableLogger) {
         super(enableLogger);
