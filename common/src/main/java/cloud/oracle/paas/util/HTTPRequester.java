@@ -10,9 +10,7 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 
 import javax.ws.rs.client.*;
-import javax.ws.rs.core.Feature;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -57,10 +55,11 @@ public class HTTPRequester {
         }
     }
 
-    public HTTPResult request(String uri, MultivaluedMap<String, String> headers, Map<String, String> params, String payload, Method method)  {
+    public HTTPResult request(String uri, MultivaluedMap<String, String> headers, Map<String, String> params, Map<String, String> formData, String payload, Method method)  {
 
-        WebTarget target = httpClient.target(uri);
-        buildParams(target, params);
+        String fullURI = buildURIWithParams(uri, params);
+        WebTarget target = httpClient.target(fullURI);
+
         Invocation.Builder builder = target.request();
         buildHeaders(builder, headers);
         if(method == null){
@@ -73,7 +72,15 @@ public class HTTPRequester {
                 response = builder.get();
                 break;
             case POST:
-                response = builder.post(Entity.json(payload));
+                if (formData != null && !formData.isEmpty()){
+                    Form form = new Form();
+                    for (Map.Entry<String,String> entry: formData.entrySet()){
+                        form.param(entry.getKey(),entry.getValue());
+                    }
+                    response = builder.post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+                }else {
+                    response = builder.post(Entity.json(payload));
+                }
                 break;
             case PUT:
                 response = builder.put(Entity.json(payload));
@@ -87,12 +94,15 @@ public class HTTPRequester {
         return buildResult(response);
     }
 
-    private void buildParams(WebTarget target, Map<String, String> params){
+    private String buildURIWithParams(String uri, Map<String, String> params){
+        String tmp = "";
         if (params != null && !params.isEmpty()){
             for(Map.Entry<String, String> entry : params.entrySet()){
-                target = target.queryParam(entry.getKey(),entry.getValue());
+                tmp += entry.getKey() + "=" + entry.getValue() + "&";
             }
+            tmp = tmp.substring(0,tmp.length()-1);
         }
+        return uri + "?" + tmp;
     }
 
     private void buildHeaders(Invocation.Builder builder, MultivaluedMap<String, String> headers){
@@ -102,7 +112,7 @@ public class HTTPRequester {
                 List<String> values = entry.getValue();
 
                 for (String value : values)
-                    builder = builder.header(key, value);
+                    builder.header(key, value);
             }
         }
     }

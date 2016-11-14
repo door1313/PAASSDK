@@ -37,7 +37,7 @@ public class HTTPRequesterTest {
         MultivaluedStringMap requestHeaders = new MultivaluedStringMap();
         requestHeaders.putSingle(CommonConstants.TENENTHEADER, PropertyLoader.getIdentityDomain());
         HTTPRequester requester = new HTTPRequester(true);
-        HTTPResult result = requester.request(uri, requestHeaders, null, null, CommonConstants.Method.GET);
+        HTTPResult result = requester.request(uri, requestHeaders, null, null, null, CommonConstants.Method.GET);
 
         assertEquals("Http status should equal", STATUS, result.getStatus());
         assertEquals("Http headers should equal", HEADERS.get("X-Frame-Option"), result.getHeaders().get("X-Frame-Option"));
