@@ -3,7 +3,7 @@ dependencies{
     compile dependencyManagement.rsapi
     compile dependencyManagement.jerseyClient
     compile dependencyManagement.glassfishJson
-    testCompile dependencyManagement.test
+    testCompile dependencyManagement.junit
 }
 
 task taskJarCommon(type:Jar, dependsOn: compileJava) {

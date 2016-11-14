@@ -1,11 +1,9 @@
 dependencies{
+    testCompile dependencyManagement.junit
+}
 
-        testCompile dependencyManagement.test
-    }
-
-
-    task taskJar(type:Jar, dependsOn: compileJava) {
-        from 'build/classes'
-        from 'libs/common-1.0.jar'
-        destinationDir = file('build/libs')
-    }
+task taskJar(type:Jar, dependsOn: compileJava) {
+    from 'build/classes'
+    from 'libs/common-1.0.jar'
+    destinationDir = file('build/libs')
+}

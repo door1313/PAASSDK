@@ -1,27 +1,24 @@
-apply plugin: 'java'
-version='0.1'
-archivesBaseName="PaaSSDK"  
-
 allprojects {
     project.group = 'PaaSSDK'
     project.version = '1.0'
+}
+subprojects {
     apply plugin: 'java'
-   
+
     sourceCompatibility = 1.8
     repositories {
         mavenCentral()
     }
-    ext{
-        dependencyManagement = [
+}
+
+ext{
+    dependencyManagement = [
             rsapi : [
-                "javax.ws.rs:javax.ws.rs-api:2.0.1"
+                    "javax.ws.rs:javax.ws.rs-api:2.0.1"
             ],
             jerseyClient : ["org.glassfish.jersey.core:jersey-client:2.24"],
             glassfishJson: ["org.glassfish:javax.json:1.0.4"],
 
-            test: ["junit:junit:4.11"]
-        ]
-    }
-}
-subprojects {
+            junit: ["junit:junit:4.11"]
+    ]
 }
