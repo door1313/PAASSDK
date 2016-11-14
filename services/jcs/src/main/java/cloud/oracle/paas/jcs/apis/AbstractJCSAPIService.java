@@ -10,19 +10,19 @@ import java.util.logging.Logger;
 /**
  * Abstract class for API service. Each api class needs to extend it.
  */
-abstract class AbstractAPIService {
+abstract class AbstractJCSAPIService {
 
     private HTTPRequester requester;
-    private String jcsHost;
+    private String prefixURL;
     private MultivaluedStringMap requestHeaders;
 
-    AbstractAPIService(Boolean enableLogger) {
+    AbstractJCSAPIService(Boolean enableLogger) {
         requester = new HTTPRequester(enableLogger);
-        jcsHost = CommonConstants.USHOST;
-        if (PropertyLoader.getRegion() != null){
-            String host = CommonConstants.RegionHost.findHostByRegion(PropertyLoader.getRegion());
-            if(host != null){
-                jcsHost = host;
+        prefixURL = CommonConstants.USHOST + CommonConstants.ENDPOINTPREFIX + "/" + PropertyLoader.getIdentityDomain() + "/";
+        if (!"".equals(PropertyLoader.getRegion())){
+            String jcsHost = CommonConstants.RegionHost.findHostByRegion(PropertyLoader.getRegion());
+            if(jcsHost != null){
+                prefixURL = jcsHost + CommonConstants.ENDPOINTPREFIX + "/" + PropertyLoader.getIdentityDomain() + "/";
             }
         }
         requestHeaders = new MultivaluedStringMap();
@@ -34,8 +34,8 @@ abstract class AbstractAPIService {
         return requester;
     }
 
-    public String getJcsHost() {
-        return jcsHost;
+    public String getPrefixURL() {
+        return prefixURL;
     }
 
     public MultivaluedStringMap getRequestHeaders() {
