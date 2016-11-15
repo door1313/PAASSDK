@@ -35,9 +35,9 @@ public class ServiceInstancesTest {
         WRONG_SERVER_NAME = "wrong_server_name";
         CORRECT_SERVER_NAME = "jiawgaoJ_server_6";
     }
-    
-        @Test
-    public void testGetAllInstances() throws Exception {
+
+    @Test
+    public void testViewAllInstances() throws Exception {
         HTTPResult result = si.viewAllInstances();
         assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
     }

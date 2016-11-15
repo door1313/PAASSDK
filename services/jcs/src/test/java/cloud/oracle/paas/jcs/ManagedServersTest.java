@@ -34,20 +34,20 @@ public class ManagedServersTest {
 
     @Test
     public void testGetAllServers() throws Exception {
-        HTTPResult result = ms.getAllServers(WRONG_SERVICE_NAME);
+        HTTPResult result = ms.viewAllServers(WRONG_SERVICE_NAME);
         assertEquals("Status should be Bad Request", BAD_REQUEST_STATUS, result.getStatus());
 
-        result = ms.getAllServers(CORRECT_SERVICE_NAME);
+        result = ms.viewAllServers(CORRECT_SERVICE_NAME);
         assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
 
     }
 
     @Test
     public void testGetServer() throws Exception {
-        HTTPResult result = ms.getServer(CORRECT_SERVICE_NAME,WRONG_SERVER_NAME);
+        HTTPResult result = ms.viewServer(CORRECT_SERVICE_NAME,WRONG_SERVER_NAME);
         assertEquals("Status should be Not Found", NOT_FOUND_STATUS, result.getStatus());
 
-        result = ms.getServer(CORRECT_SERVICE_NAME,CORRECT_SERVER_NAME);
+        result = ms.viewServer(CORRECT_SERVICE_NAME,CORRECT_SERVER_NAME);
         assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
 
     }
