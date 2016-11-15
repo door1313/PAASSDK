@@ -1,9 +1,11 @@
-package cloud.oracle.paas.jcs;
+package cloud.oracle.paas.jcs.apis;
 
-import cloud.oracle.paas.jcs.apis.ManagedServers;
 import cloud.oracle.paas.model.HTTPResult;
+import cloud.oracle.paas.util.HTTPRequester;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,10 +21,12 @@ public class ManagedServersTest {
     private static String WRONG_SERVER_NAME;
     private static String CORRECT_SERVER_NAME;
     private static ManagedServers ms;
+    private static final HTTPRequester requester = new HTTPRequester();
 
     @Before
     public void setUp(){
-        ms = new ManagedServers(true);
+        requester.enableLogger(Level.INFO);
+        ms = new ManagedServers(requester);
         BAD_REQUEST_STATUS = 400;
         NOT_FOUND_STATUS = 404;
         SUCCESS_STATUS = 200;

@@ -48,9 +48,9 @@ public class HTTPRequester {
 
     }
 
-    public HTTPRequester(Boolean enableLogger) {
-        if(enableLogger){
-            Feature feature = new LoggingFeature(LOGGER, Level.INFO, null, null);
+    public void enableLogger(Level level) {
+        if(level != null){
+            Feature feature = new LoggingFeature(LOGGER, level, null, null);
             httpClient.register(feature);
         }
     }

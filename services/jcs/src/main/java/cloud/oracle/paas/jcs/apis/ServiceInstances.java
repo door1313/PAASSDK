@@ -2,6 +2,7 @@ package cloud.oracle.paas.jcs.apis;
 
 import cloud.oracle.paas.CommonConstants;
 import cloud.oracle.paas.model.HTTPResult;
+import cloud.oracle.paas.util.HTTPRequester;
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 
 /**
@@ -9,8 +10,8 @@ import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
  */
 public class ServiceInstances extends AbstractJCSAPIService {
 
-    public ServiceInstances(Boolean enableLogger) {
-        super(enableLogger);
+    public ServiceInstances(HTTPRequester requester) {
+        super(requester);
     }
 
     //Refer to https://docs.oracle.com/cloud/latest/jcs_gs/JSRMR/op-paas-service-jcs-api-v1.1-instances-%7BidentityDomainId%7D-post.html

@@ -2,6 +2,7 @@ package cloud.oracle.paas.jcs.apis;
 
 import cloud.oracle.paas.CommonConstants;
 import cloud.oracle.paas.model.HTTPResult;
+import cloud.oracle.paas.util.HTTPRequester;
 
 import java.util.Map;
 
@@ -10,8 +11,8 @@ import java.util.Map;
  */
 public class Scaling extends AbstractJCSAPIService {
 
-    public Scaling(Boolean enableLogger) {
-        super(enableLogger);
+    public Scaling(HTTPRequester requester) {
+        super(requester);
     }
 
     // refer to http://docs.oracle.com/cloud/latest/jcs_gs/JSRMR/op-paas-service-jcs-api-v1.1-instances-%7BidentityDomainId%7D-%7BserviceId%7D-servers-%7Bname%7D-post.html
