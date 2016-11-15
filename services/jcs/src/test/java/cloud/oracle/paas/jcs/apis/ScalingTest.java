@@ -1,12 +1,13 @@
-package cloud.oracle.paas.jcs;
+package cloud.oracle.paas.jcs.apis;
 
-import cloud.oracle.paas.jcs.apis.Scaling;
 import cloud.oracle.paas.model.HTTPResult;
+import cloud.oracle.paas.util.HTTPRequester;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,10 +23,12 @@ public class ScalingTest {
     private static String WRONG_SERVER_NAME;
     private static String CORRECT_SERVER_NAME;
     private static Scaling scaling;
+    private static final HTTPRequester requester = new HTTPRequester();
 
     @Before
     public void setUp(){
-        scaling = new Scaling(true);
+        requester.enableLogger(Level.INFO);
+        scaling = new Scaling(requester);
         BAD_REQUEST_STATUS = 400;
         NOT_FOUND_STATUS = 404;
         SUCCESS_STATUS = 202;

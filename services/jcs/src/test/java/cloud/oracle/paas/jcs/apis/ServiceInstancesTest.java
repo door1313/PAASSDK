@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cloud.oracle.paas.jcs;
-import cloud.oracle.paas.jcs.apis.ManagedServers;
-import cloud.oracle.paas.jcs.apis.ServiceInstances;
+package cloud.oracle.paas.jcs.apis;
+
 import cloud.oracle.paas.model.HTTPResult;
+import cloud.oracle.paas.util.HTTPRequester;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.logging.Level;
+
 import static org.junit.Assert.assertEquals;
 /**
  *
  * @author pengw
  */
 public class ServiceInstancesTest {
-     private static int BAD_REQUEST_STATUS ;
+    private static int BAD_REQUEST_STATUS ;
     private static int NOT_FOUND_STATUS;
     private static int SUCCESS_STATUS;
     private static String WRONG_SERVICE_NAME;
@@ -23,10 +21,12 @@ public class ServiceInstancesTest {
     private static String WRONG_SERVER_NAME;
     private static String CORRECT_SERVER_NAME;
     private static ServiceInstances si;
+    private static final HTTPRequester requester = new HTTPRequester();
 
     @Before
     public void setUp(){
-        si = new ServiceInstances(true);
+        requester.enableLogger(Level.INFO);
+        si = new ServiceInstances(requester);
         BAD_REQUEST_STATUS = 400;
         NOT_FOUND_STATUS = 404;
         SUCCESS_STATUS = 200;

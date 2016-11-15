@@ -13,11 +13,10 @@ import java.util.logging.Logger;
 abstract class AbstractJCSAPIService {
 
     private HTTPRequester requester;
-    private String prefixURL;
-    private MultivaluedStringMap requestHeaders;
+    private static String prefixURL;
+    private static MultivaluedStringMap requestHeaders;
 
-    AbstractJCSAPIService(Boolean enableLogger) {
-        requester = new HTTPRequester(enableLogger);
+    static {
         prefixURL = CommonConstants.USHOST + CommonConstants.ENDPOINTPREFIX + "/" + PropertyLoader.getIdentityDomain() + "/";
         if (!"".equals(PropertyLoader.getRegion())){
             String jcsHost = CommonConstants.RegionHost.findHostByRegion(PropertyLoader.getRegion());
@@ -27,7 +26,10 @@ abstract class AbstractJCSAPIService {
         }
         requestHeaders = new MultivaluedStringMap();
         requestHeaders.putSingle(CommonConstants.TENENTHEADER,PropertyLoader.getIdentityDomain());
+    }
 
+    AbstractJCSAPIService(HTTPRequester httpRequester) {
+        requester = httpRequester;
     }
 
     public HTTPRequester getRequester() {

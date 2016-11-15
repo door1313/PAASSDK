@@ -11,6 +11,7 @@ import javax.json.Json;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,6 +22,8 @@ public class HTTPRequesterTest {
     private static int STATUS;
     private static String CONTENT;
     private static Map<String,Object> HEADERS;
+    private static final HTTPRequester requester = new HTTPRequester();
+
 
     @Before
     public void setUp(){
@@ -36,7 +39,7 @@ public class HTTPRequesterTest {
         String uri = CommonConstants.RegionHost.findHostByRegion(PropertyLoader.getRegion()) + "/paas/service/jcs/api/v1.1/instances/" + PropertyLoader.getIdentityDomain() + "/jiawgaoJCS/servers/aaa";
         MultivaluedStringMap requestHeaders = new MultivaluedStringMap();
         requestHeaders.putSingle(CommonConstants.TENENTHEADER, PropertyLoader.getIdentityDomain());
-        HTTPRequester requester = new HTTPRequester(true);
+        requester.enableLogger(Level.INFO);
         HTTPResult result = requester.request(uri, requestHeaders, null, null, null, CommonConstants.Method.GET);
 
         assertEquals("Http status should equal", STATUS, result.getStatus());
