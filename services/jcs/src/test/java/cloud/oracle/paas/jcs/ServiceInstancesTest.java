@@ -1,28 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package cloud.oracle.paas.jcs;
-
 import cloud.oracle.paas.jcs.apis.ManagedServers;
+import cloud.oracle.paas.jcs.apis.ServiceInstances;
 import cloud.oracle.paas.model.HTTPResult;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
-
 /**
- * Test for ManagedServers
+ *
+ * @author pengw
  */
-public class ManagedServersTest {
-    private static int BAD_REQUEST_STATUS ;
+public class ServiceInstancesTest {
+     private static int BAD_REQUEST_STATUS ;
     private static int NOT_FOUND_STATUS;
     private static int SUCCESS_STATUS;
     private static String WRONG_SERVICE_NAME;
     private static String CORRECT_SERVICE_NAME;
     private static String WRONG_SERVER_NAME;
     private static String CORRECT_SERVER_NAME;
-    private static ManagedServers ms;
+    private static ServiceInstances si;
 
     @Before
     public void setUp(){
-        ms = new ManagedServers(true);
+        si = new ServiceInstances(true);
         BAD_REQUEST_STATUS = 400;
         NOT_FOUND_STATUS = 404;
         SUCCESS_STATUS = 200;
@@ -33,22 +37,8 @@ public class ManagedServersTest {
     }
 
     @Test
-    public void testGetAllServers() throws Exception {
-        HTTPResult result = ms.viewAllServers(WRONG_SERVICE_NAME);
-        assertEquals("Status should be Bad Request", BAD_REQUEST_STATUS, result.getStatus());
-
-        result = ms.viewAllServers(CORRECT_SERVICE_NAME);
+    public void testViewAllInstances() throws Exception {
+        HTTPResult result = si.viewAllInstances();
         assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
-
-    }
-
-    @Test
-    public void testGetServer() throws Exception {
-        HTTPResult result = ms.viewServer(CORRECT_SERVICE_NAME,WRONG_SERVER_NAME);
-        assertEquals("Status should be Not Found", NOT_FOUND_STATUS, result.getStatus());
-
-        result = ms.viewServer(CORRECT_SERVICE_NAME,CORRECT_SERVER_NAME);
-        assertEquals("Status should be success", SUCCESS_STATUS, result.getStatus());
-
     }
 }
