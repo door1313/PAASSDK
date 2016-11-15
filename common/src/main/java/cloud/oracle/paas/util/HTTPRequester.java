@@ -57,9 +57,8 @@ public class HTTPRequester {
 
     public HTTPResult request(String uri, MultivaluedMap<String, String> headers, Map<String, String> params, Map<String, String> formData, String payload, Method method)  {
 
-        String fullURI = buildURIWithParams(uri, params);
-        WebTarget target = httpClient.target(fullURI);
-
+        WebTarget target = httpClient.target(uri);
+        target = buildURIWithParams(target, params);
         Invocation.Builder builder = target.request();
         buildHeaders(builder, headers);
         if(method == null){
@@ -94,15 +93,14 @@ public class HTTPRequester {
         return buildResult(response);
     }
 
-    private String buildURIWithParams(String uri, Map<String, String> params){
-        String tmp = "";
+    private WebTarget buildURIWithParams(WebTarget wt, Map<String, String> params){
+
         if (params != null && !params.isEmpty()){
             for(Map.Entry<String, String> entry : params.entrySet()){
-                tmp += entry.getKey() + "=" + entry.getValue() + "&";
+                wt = wt.queryParam(entry.getKey(), entry.getValue());
             }
-            tmp = tmp.substring(0,tmp.length()-1);
         }
-        return uri + "?" + tmp;
+        return wt;
     }
 
     private void buildHeaders(Invocation.Builder builder, MultivaluedMap<String, String> headers){
