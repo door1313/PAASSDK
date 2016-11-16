@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 abstract class AbstractJCSAPIService {
 
-    private HTTPRequester requester;
+    private static final HTTPRequester requester = new HTTPRequester();
     private static String prefixURL;
     private static MultivaluedStringMap requestHeaders;
 
@@ -26,10 +26,6 @@ abstract class AbstractJCSAPIService {
         }
         requestHeaders = new MultivaluedStringMap();
         requestHeaders.putSingle(CommonConstants.TENENTHEADER,PropertyLoader.getIdentityDomain());
-    }
-
-    AbstractJCSAPIService(HTTPRequester httpRequester) {
-        requester = httpRequester;
     }
 
     public HTTPRequester getRequester() {
