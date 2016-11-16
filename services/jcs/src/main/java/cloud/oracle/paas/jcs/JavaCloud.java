@@ -17,14 +17,6 @@ public class JavaCloud {
     private static ManagedServers ms;
     private static Scaling scaling;
 
-//    public HTTPResult createInstance(String serviceName, String payload){
-//        return new ServiceInstances().createInstance(serviceName,payload);
-//    }
-//
-//    public HTTPResult viewAllInstancse(){
-//        return new ServiceInstances().viewAllInstances();
-//    }
-
     public static class Instance{
         public Instance() {
             si = new ServiceInstances();
