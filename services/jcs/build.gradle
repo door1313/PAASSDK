@@ -3,8 +3,16 @@ dependencies{
     testCompile dependencyManagement.junit
 }
 
-task taskJar(type:Jar, dependsOn: compileJava) {
-    from 'build/classes'
-    from 'libs/common-1.0.jar'
-    destinationDir = file('build/libs')
+jar {
+
+    baseName = "paas-sdk-java-cloud-all"
+
+    includeEmptyDirs = false
+    duplicatesStrategy = 'exclude'
+
+    from {
+        (configurations.runtime).collect {
+            zipTree(it)
+        }
+    }
 }
